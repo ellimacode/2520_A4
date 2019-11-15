@@ -8,6 +8,7 @@
 #include <ctype.h>
 #include "hash_fn.h"
 
+/* first hash function for last_name */
 int hash1(char *string, int hash_size)
 {
   unsigned long hash_val = 0;
@@ -21,7 +22,7 @@ int hash1(char *string, int hash_size)
   return (int)hash;
 }
 
-
+/* second hash function for license_type */
 int hash2(char *string, int hash_size)
 {
     unsigned int hash_val;
@@ -36,6 +37,7 @@ int hash2(char *string, int hash_size)
 }
 
 
+/* third hash function for issue_date */
 int hash3(char *string, int hash_size)
 {
 	unsigned int hash_val;
