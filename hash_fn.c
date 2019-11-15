@@ -40,13 +40,5 @@ int hash2(char *string, int hash_size)
 /* third hash function for issue_date */
 int hash3(char *string, int hash_size)
 {
-	unsigned int hash_val;
-	int i;
 	
-	for (i = 0; string[i] != '\0'; i++)
-	{
-		hash_val = (31*hash_val) + string[i];
-	}
-	
-	return hash_val % hash_size;
 }
