@@ -2,43 +2,59 @@
  * Student ID: 1046663
  * Email: ccua@uoguelph.ca */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
 #include "hash_fn.h"
 
 /* first hash function for last_name */
-int hash1(char *string, int hash_size)
+int hash1(char *string , int hash_size)
 {
-  unsigned long hash_val = 0;
-  int i;
+  int collisions, buckets;
+  struct array *arrptr;
 
-  for (i = 0; string[i] != '\0'; i++)
+  collisions = 0;
+  buckets = 0;
+
+  arrptr = read_records();
+
+  build_hash(arrptr, 500000);
+
+  buckets = str2int(string, hash_size);
+
+  while (collisions < hash_size)
   {
-    hash_val += (long)pow(a, strlen(string) - (i+1)) * string[i];
-    hash_val = hash_val % hash_size;
+    /* insert item in next empty bucket */
+    if ((arrptr->hash)[buckets] == NULL)
+    {
+       strcpy((arrptr->arr)[buckets].last_name,string);
+    }
+
+    /* increment bucket index and number of collisions */
+    else
+    {
+       buckets = (buckets + 1) % hash_size;
+       collisions++;
+    }
   }
-  return (int)hash;
+
+  return collisions;
 }
 
 /* second hash function for license_type */
 int hash2(char *string, int hash_size)
 {
-    unsigned int hash_val;
-    int i;
-
-    for (i = 0; string[i] != '\0';  i++)
-    {
-       hash_val = (31*hash_val) + string[i];
-    }
-
-    return hash_val % hash_size;
+	return 0;
 }
 
 
 /* third hash function for issue_date */
 int hash3(char *string, int hash_size)
 {
-	
+	return 0;
+}
+
+int main()
+{
+  int col = hash1("Bob", 500000);
+  printf("%d\n", col);
+
+return 0;
 }
