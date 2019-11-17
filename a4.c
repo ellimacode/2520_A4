@@ -4,50 +4,61 @@
 
 #include "a4.h"
 
-/* first hash function for last_name */
+/* Resources:
+ * djb2 hash function: http://www.cse.yorku.ca/~oz/hash.html
+ * https://www.esa.org/tiee/search/src/hash.c
+ * Google, GeeksForGeeks
+ * /
+
+
+/* LOWEST collision: 8531 */
 int hash1(char *string , int hash_size)
 {
-  int collisions, buckets;
-  struct array *arrptr;
-
-  collisions = 0;
-  buckets = 0;
-
-  arrptr = read_records();
-
-  build_hash( arrptr, 500000 );
-
-  buckets = str2int(string, hash_size);
-
-  while (collisions < hash_size)
+  unsigned hash_val = 0;
+  
+  for (; *string != '\0'; string++)
   {
-    /* insert item in next empty bucket */
-    if ((arrptr->hash)[buckets] == NULL)
-    {
-       strcpy( (arrptr->arr)[buckets].last_name, string );
-    }
-
-    /* increment bucket index and number of collisions */
-    else
-    {
-       buckets = (buckets + 1) % hash_size;
-       collisions++;
-    }
+	  hash_val = ((unsigned char) *string) + 23 * hash_val;
   }
-
-  return collisions;
+  
+  hash_val = hash_val % hash_size;
+  
+  return (int)hash_val;
 }
 
-/* second hash function for license_type */
+
 int hash2(char *string, int hash_size)
 {
-  return 0;
+  unsigned long hash_val = 0;
+  unsigned long pow = 33;
+	
+  for(; *string != '\0'; string++) 
+  {
+	  hash_val = (hash_val + ((*string) - 'A' + 1)* pow);
+	  pow = (pow * 6599);
+  }
+	
+  hash_val = hash_val % hash_size;
+	
+  return (int)hash_val;
 }
 
 
-/* third hash function for issue_date */
+/* the lowest collison I got with the below 
+ * function is 0. */
 int hash3(char *string, int hash_size)
 {
-  return 0;
+  unsigned long hash_val = 0;
+  unsigned long pow = 31;
+	
+  for(; *string != '\0'; string++)
+  {
+	  hash_val = (hash_val + ((*string) - 'A' + 1)* pow);
+	  pow = (pow * 6599);
+  }
+	
+  hash_val = hash_val % hash_size;
+	
+  return (int)hash_val;
 }
 
