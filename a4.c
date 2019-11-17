@@ -8,10 +8,14 @@
  * djb2 hash function: http://www.cse.yorku.ca/~oz/hash.html
  * https://www.esa.org/tiee/search/src/hash.c
  * Google, GeeksForGeeks
- * /
+ * ----------------------------------
+ * hash1 for key last_name
+ * hash2 for key license_no
+ * hash3 for key issue_date
+ * ----------------------------------
+ */
 
 
-/* LOWEST collision: 8531 */
 int hash1(char *string , int hash_size)
 {
   unsigned hash_val = 0;
@@ -44,8 +48,7 @@ int hash2(char *string, int hash_size)
 }
 
 
-/* the lowest collison I got with the below 
- * function is 0. */
+
 int hash3(char *string, int hash_size)
 {
   unsigned long hash_val = 0;
